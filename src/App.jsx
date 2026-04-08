@@ -182,6 +182,7 @@ const getThemePreset = (title = '') => {
 }
 
 function App() {
+  const baseUrl = import.meta.env.BASE_URL
   const today = useMemo(() => atStartOfDay(new Date()), [])
   const [currentMonth, setCurrentMonth] = useState(new Date(today.getFullYear(), today.getMonth(), 1))
   const [selectedDate, setSelectedDate] = useState(null)
@@ -214,7 +215,7 @@ function App() {
   const heroContainerRef = useRef(null)
 
   useEffect(() => {
-    fetch('/themes/manifest.json')
+    fetch(`${baseUrl}themes/manifest.json`)
       .then((response) => (response.ok ? response.json() : {}))
       .then((payload) => {
         if (payload && typeof payload === 'object') {
@@ -224,7 +225,7 @@ function App() {
       .catch(() => {
         setThemeImageManifest({})
       })
-  }, [])
+  }, [baseUrl])
 
   useEffect(() => {
     const raw = localStorage.getItem(NOTES_STORAGE_KEY)
@@ -544,9 +545,9 @@ function App() {
   const currentMonthImageCandidates = useMemo(() => {
     const monthKey = monthKeyByIndex[currentMonth.getMonth()]
     const files = Array.isArray(themeImageManifest?.[monthKey]) ? themeImageManifest[monthKey] : []
-    const resolved = files.map((fileName) => encodeURI(`/themes/${monthKey}/${fileName}`))
+    const resolved = files.map((fileName) => encodeURI(`${baseUrl}themes/${monthKey}/${fileName}`))
     return resolved.length > 0 ? resolved : [heroImage]
-  }, [currentMonth, themeImageManifest])
+  }, [baseUrl, currentMonth, themeImageManifest])
 
   const fetchThemeHeroImage = useCallback(async () => {
     const monthImages = currentMonthImageCandidates
