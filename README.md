@@ -2,6 +2,10 @@
 
 A modern, interactive wall-calendar web app with Indian context styling, drag date-range selection, notes, group notes, holiday highlights, and dynamic monthly hero images.
 
+## Live Demo
+
+- Deployed on GitHub Pages: [https://sidak-321.github.io/calender_tuf/](https://sidak-321.github.io/calender_tuf/)
+
 ## What This App Includes
 
 - Monthly calendar grid (Monday to Sunday)
